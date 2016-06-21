@@ -1,0 +1,99 @@
+//// Gramática del fichero de gramática
+//// Conjunto de símbolos terminales
+Terminales = { pETerminales  pENoTerminales  pEAxioma  pEProducciones  =  {  }  ->
+		  idNormal  idSimbolo  comentario  finLinea  finFichero  SimbLambda  }
+
+//// Conjunto de símbolo no terminales
+NoTerminales = { Axioma  S SF SI Declaracion Asignacion Operacion IO LlamaFuncion Funcion Condicional For OperacionArit
+ OperacionRela OperacionLogi OperacionRest OperacionArit1 OperacionRela1 OperacionLogi1 OperacionRest ListaParam1 ListaParam ListaParamTipo ListaParamTipo1 Param Term }
+
+//// Axioma
+Axioma = Axioma
+
+//// Lista de producciones
+Producciones = {
+
+Axioma -> S
+S -> S S
+S -> Declaracion
+S -> Asignacion
+S -> Operacion
+S -> IO
+S -> LlamaFuncion
+S -> Funcion
+S -> Condicional
+S -> For
+
+SF -> SF SF
+SF -> Declaracion
+SF -> Asignacion
+SF -> Operacion
+SF -> IO
+SF -> LlamaFuncion
+SF -> Condicional
+SF -> For
+
+SI -> Declaracion
+SI -> Asignacion
+SI -> Operacion
+SI -> IO
+SI -> LlamaFuncion
+SI -> Condicional
+SI -> For
+
+Declaracion -> var tipo id
+
+Asignacion -> id = Term
+Asignacion -> id = Operacion
+Asignacion -> id = LlamaFuncion
+Asignacion -> OperacionRest //Preguntar por asign circular
+
+Operacion -> OperacionArit
+Operacion -> OperacionRela
+Operacion -> OperacionLogi
+Operacion -> OperacionRest
+
+OperacionArit1 -> + Term OperacionArit1
+OperacionArit1 -> lambda
+OperacionArit -> Term + Term OperacionArit1
+
+OperacionRela1 -> == Term OperacionRela1
+OperacionRela1 -> lambda
+OperacionRela -> Term == Term OperacionRela1
+
+OperacionLogi1 -> && Term OperacionLogi1
+OperacionLogi1 -> lambda
+OperacionLogi -> Term && Term OperacionLogi
+
+OperacionRest -> id -= Term
+
+
+IO -> opIO ( Term )
+IO -> opIO ( Operacion )
+
+LlamaFuncion -> id ( ListaParam )
+
+ListaParam1 -> , Param ListaParam1
+ListaParam1 -> lambda
+ListaParam -> Param ListaParam1
+
+Funcion -> function id ( ListaParamTipo ) { SF }
+Funcion -> function tipo id ( ListaParamTipo ) { SF return Term}
+Funcion -> function tipo id ( ListaParamTipo ) { SF return Operacion} //EXPRESIÓN??
+
+ListaParamTipo1 -> , tipo Param ListaParamTipo1
+ListaParamTipo1 -> lambda
+ListaParamTipo -> tipo Param ListaParamTipo1
+
+Condicional -> if ( OperacionLogi ) SI
+
+For -> for ( Asignacion ; OperacionLogi ; Asignacion) { SF }
+
+Param -> Term
+Param -> Operacion
+
+Term -> id
+Term -> cons
+
+}
+

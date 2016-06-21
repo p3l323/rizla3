@@ -1,0 +1,168 @@
+//// Gramática del fichero de gramática
+//// Conjunto de símbolos terminales
+Terminales = { lambda var tipo id = -= ( ) cons op + == & , function { } tipo return if for ; }
+
+//// Conjunto de símbolo no terminales
+NoTerminales = { Axioma S Declaracion Asignacion Operacion IO Funcion Condicional For SF SI X A1 Term ListaParam A1 Cadena C1 Operacion1 Op ListaParam1 ListaParam Funcion F2 ListaParamTipo F1 ListaParamTipo1 ListaParamTipo }
+
+//// Axioma
+Axioma = S
+//// Lista de producciones
+Producciones = {
+
+
+
+
+
+
+Cadena -> id C1
+Cadena -> cons C1
+C1 -> lambda
+C1 -> op id C1
+C1 -> op cons C1
+
+
+
+
+
+
+Declaracion -> var tipo id S
+
+Asignacion -> id X
+X -> = id X1
+X -> -= X2
+X -> ( ListaParam ) S
+
+X1 -> id C1 S
+X1 -> cons C1 S
+
+X2 -> id S
+X2 -> cons S
+
+
+Operacion1 -> Op Operacion2
+Operacion1 -> S
+Operacion -> id Op Operacion2
+Operacion -> cons Op Operacion2
+
+Op -> +
+Op -> ==
+Op -> &&
+
+Operacion2 -> id Operacion1
+Operacion2 -> cons Operacion1
+
+
+IO -> opIO ( IO1
+
+IO1 -> id C1) S
+IO1 -> cons C1) S
+
+
+ListaParam1 -> , ListaParam3
+ListaParam1 -> lambda
+ListaParam -> id ListaParam2
+ListaParam -> cons ListaParam2
+ListaParam2 -> C1 ListaParam1
+ListaParam3 -> id ListaParam2
+ListaParam3 -> cons ListaParam2
+
+ListaParamTipo1 -> , ListaParamTipo
+ListaParamTipo1 -> lambda
+ListaParamTipo -> tipo id ListaParamTipo1
+
+
+For -> for ( Asignacion ; Operacion ; Asignacion) { SF }
+
+
+
+
+
+Funcion -> function F2
+F2 -> id ( ListaParamTipo ) { SF }
+F2 -> tipo id ( ListaParamTipo ) { SF return F1
+F1 -> id C1 }
+F1 -> cons C1 }
+
+
+DeclaracionSF -> var tipo id SF
+
+AsignacionSF -> id XSF
+XSF -> = XSF1
+XSF -> -= XSF2
+XSF -> ( ListaParam ) SF
+
+XSF1 -> id C1 SF
+XSF1 -> cons C1 SF
+
+XSF2 -> id SF
+XSF2 -> cons SF
+
+IOSF -> opIO ( IOSF1
+
+IOSF1 -> id C1 ) SF
+IOSF1 -> cons C1 ) SF
+
+
+CondicionalSF -> if ( Operacion ) CondicionalSF1
+
+CondicionalSF1 -> var tipo id SF
+CondicionalSF1 -> AsignacionSISF
+CondicionalSF1 -> IOSISF
+
+ForSF -> for ( Asignacion ; Operacion ; Asignacion) { SF } SF
+
+AsignacionSISF -> id XSISF
+XSISF -> = XSISF1
+XSISF -> -= XSISF2
+XSISF -> ( ListaParam ) SF
+
+XSISF1 -> id C1 SF
+XSISF1 -> cons C1 SF
+
+XSISF2 -> id SF
+XSISF2 -> cons SF
+
+IOSISF -> opIO ( IOSISF1
+
+IOSISF1 -> id C1 ) SF
+IOSISF1 -> cons C1 ) SF
+
+
+
+
+
+
+
+
+
+
+Condicional -> if ( Operacion ) Condicional1
+
+Condicional1 -> var tipo id
+Condicional1 -> AsignacionSI
+Condicional1 -> IOSI
+
+
+AsignacionSI -> id XSI
+XSI -> = XSI1
+XSI -> -= XSI2
+XSI -> ( ListaParam ) S
+
+XSI1 -> id C1 S
+XSI1 -> cons C1 S
+
+XSI2 -> id S
+XSI2 -> cons S
+
+IOSI -> opIO ( IOSI1 
+
+IOSI1 -> id ) S
+IOSI1 -> cons ) S
+
+
+
+
+
+}
+

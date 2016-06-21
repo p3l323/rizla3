@@ -1,0 +1,105 @@
+//// Gramática del fichero de gramática
+//// Conjunto de símbolos terminales
+Terminales = { lambda var tipo id = -= ( ) cons op + == & , function { } tipo return if for ; }
+
+//// Conjunto de símbolo no terminales
+NoTerminales = { Axioma S Declaracion Asignacion Operacion IO Funcion Condicional For SF SI X A1 Term ListaParam A1 Cadena C1 Operacion1 Op ListaParam1 ListaParam Funcion F2 ListaParamTipo F1 ListaParamTipo1 ListaParamTipo }
+
+//// Axioma
+Axioma = S
+//// Lista de producciones
+Producciones = {
+
+
+
+Cadena -> id C1
+Cadena -> cons C1
+C1 -> lambda
+C1 -> op Term C1
+
+Declaracion -> var tipo id S
+
+Asignacion -> id X
+X -> = Term C1 S
+X -> -= Term S
+X -> ( ListaParam ) S
+
+
+
+Operacion1 -> Op Term Operacion1
+Operacion1 -> S
+Operacion -> Term Op Term Operacion1
+Op -> +
+Op -> ==
+Op -> &&
+
+
+IO -> opIO ( Term C1 ) S
+
+
+ListaParam1 -> , Term C1 ListaParam1
+ListaParam1 -> lambda
+ListaParam -> Term C1 ListaParam1
+
+ListaParamTipo1 -> , tipo id ListaParamTipo1
+ListaParamTipo1 -> lambda
+ListaParamTipo -> tipo id ListaParamTipo1
+
+
+For -> for ( Asignacion ; Operacion ; Asignacion ) { SF }
+
+
+
+
+
+Funcion -> function F2
+F2 -> id ( ListaParamTipo ) { SF }
+F2 -> tipo id ( ListaParamTipo ) { SF return F1
+F1 -> Term C1 }
+
+
+DeclaracionSF -> var tipo id SF
+
+AsignacionSF -> id XSF
+XSF -> = Term C1 SF
+XSF -> -= Term SF
+XSF -> ( ListaParam ) SF
+
+IOSF -> opIO ( Term C1 ) SF
+
+
+CondicionalSF -> if ( Operacion ) SFX
+SFX -> var tipo id SF
+SFX -> AsignacionSISF
+SFX -> IOSISF
+
+ForSF -> for ( Asignacion ; Operacion ; Asignacion ) { SF } SF
+
+AsignacionSISF -> id XSISF
+XSISF -> = Term C1 SF
+XSISF -> -= Term SF
+XSISF -> ( ListaParam ) SF
+
+IOSISF -> opIO ( Term C1 ) SF
+
+
+Condicional -> if ( Operacion ) SISX
+SISX -> var tipo id 
+SISX -> AsignacionSI
+SISX -> IOSI
+
+
+AsignacionSI -> id XSI
+XSI -> = Term C1 S
+XSI -> -= Term S
+XSI -> ( ListaParam ) S
+
+IOSI -> opIO ( Term ) S
+
+
+Term -> id
+Term -> cons
+
+
+}
+

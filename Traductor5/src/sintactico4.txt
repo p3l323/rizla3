@@ -1,0 +1,28 @@
+//// Gramática del fichero de gramática
+//// Conjunto de símbolos terminales
+Terminales = { pETerminales  pENoTerminales  pEAxioma  pEProducciones  =  {  }  ->
+		  idNormal  idSimbolo  comentario  finLinea  finFichero  SimbLambda  }
+
+//// Conjunto de símbolo no terminales
+NoTerminales = { Axioma  S SF SI Declaracion Asignacion Operacion IO LlamaFuncion Funcion Condicional For OperacionArit
+ OperacionRela OperacionLogi OperacionRest OperacionArit1 OperacionRela1 OperacionLogi1 OperacionRest ListaParam1 ListaParam ListaParamTipo ListaParamTipo1 Param Term }
+
+//// Axioma
+Axioma = S
+
+//// Lista de producciones
+Producciones = {
+
+
+SI -> Declaracion
+SI -> Asignacion
+SI -> Operacion
+SI -> IO
+SI -> LlamaFuncion
+SI -> Condicional
+SI -> For
+
+
+
+}
+

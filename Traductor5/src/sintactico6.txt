@@ -1,0 +1,45 @@
+//// Gramática del fichero de gramática
+//// Conjunto de símbolos terminales
+Terminales = { lambda var tipo id = -= ( ) cons op + == & , function { } tipo return if for ; }
+
+//// Conjunto de símbolo no terminales
+NoTerminales = { Axioma S Declaracion Asignacion Operacion IO Funcion Condicional For SF SI X A1 Term ListaParam A1 Cadena C1 Operacion1 Op ListaParam1 ListaParam Funcion F2 ListaParamTipo F1 ListaParamTipo1 ListaParamTipo }
+
+//// Axioma
+Axioma = S
+//// Lista de producciones
+Producciones = {
+
+S -> br S
+S -> Declaracion S
+S -> Asignacion S
+S -> IO S
+S -> Funcion S
+S -> Condicional S
+S -> For S
+S -> lambda
+
+SF -> br SF
+SF -> Declaracion SF
+SF -> Asignacion SF
+SF -> IO SF
+SF -> Condicional SF
+SF -> For SF
+SF -> lambda
+
+
+
+SI -> Declaracion
+SI -> Asignacion
+SI -> IO
+SI -> Condicional
+SI -> For
+
+
+
+
+
+Tipo -> chars
+
+}
+

@@ -1,0 +1,23 @@
+//// Gramática del fichero de gramática
+//// Conjunto de símbolos terminales
+Terminales = { + * ( ) }
+
+//// Conjunto de símbolo no terminales
+NoTerminales = { Axioma E T F }
+
+//// Axioma
+Axioma = F
+
+//// Lista de producciones
+Producciones = {
+
+F -> ( id A )
+A -> P O R
+O -> P O
+O -> null
+R -> rest O
+R -> lambda
+P -> ( id O )
+
+}
+

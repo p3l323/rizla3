@@ -1,0 +1,5 @@
+function bisiesto (a)	
+{			
+	a=3
+} // fin de bisiesto
+
